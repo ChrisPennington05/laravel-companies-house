@@ -89,6 +89,28 @@ class Company extends ResourcesBase
         }
     }
 
+     /**
+     * Get specified company's person with significant control or throw an exception if no number is defined.
+     *
+     * @return array|mixed|null|object
+     * @throws \Exception
+     */
+    public function persons_with_significant_control()
+    {
+        if (! empty($this->number)) {
+            $uri = "/company/{$this->number}/persons-with-significant-control";
+
+            $url = $this->buildResourceUrl($uri);
+
+            $response = $this->client->get($url);
+
+            return $response;
+        } else {
+            throw new BadMethodCallException('Company number is not provided yet.');
+        }
+    }
+    
+    
     /**
      * @return array|mixed|null|object
      * @throws \Exception
